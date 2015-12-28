@@ -13,6 +13,7 @@ class StandartVirus : public IVirus
 public:
     StandartVirus();
     ~StandartVirus();
+
     int getContagiousness();
 };
 

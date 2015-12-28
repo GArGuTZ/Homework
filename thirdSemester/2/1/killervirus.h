@@ -12,6 +12,7 @@ class KillerVirus : public IVirus
 public:
     KillerVirus();
     ~KillerVirus();
+
     int getContagiousness();
 };
 

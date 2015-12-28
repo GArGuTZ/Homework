@@ -1,18 +1,18 @@
 #include "network.h"
 
 
-Network::Network(const QVector<Computer> &computersList, bool **matrix)
+Network::Network(const QVector<Computer> &_computersList, bool **_matrix)
 {
-    adjacencyMatrix = matrix;
-    numberOfComputers = computersList.length();
-    numberOfVictims = 0;
-    listOfComputers = computersList;
+    adjacencyMatrix_ = _matrix;
+    numberOfComputers_ = _computersList.length();
+    numberOfVictims_ = 0;
+    listOfComputers_ = _computersList;
 
-    for(unsigned int i = 0; i < numberOfComputers; ++i)
+    for (unsigned int i = 0; i < numberOfComputers_; ++i)
     {
-        if(listOfComputers[i].isInfected())
+        if (listOfComputers_[i].isInfected())
         {
-            ++numberOfVictims;
+            ++numberOfVictims_;
         }
     }
 
@@ -21,17 +21,19 @@ Network::Network(const QVector<Computer> &computersList, bool **matrix)
 
 Network::~Network()
 {
-    listOfComputers.clear();
+    listOfComputers_.clear();
 
-    for(unsigned int i = 0; i < numberOfComputers; ++i)
+    for (unsigned int i = 0; i < numberOfComputers_; ++i)
     {
-        delete adjacencyMatrix[i];
+        delete [] adjacencyMatrix_[i];
     }
 
-    delete adjacencyMatrix;
-    numberOfComputers = 0;
-    numberOfVictims = 0;
-    if(virus_)
+    delete [] adjacencyMatrix_;
+
+    numberOfComputers_ = 0;
+    numberOfVictims_ = 0;
+
+    if (virus_)
     {
         delete virus_;
     }
@@ -39,57 +41,59 @@ Network::~Network()
 
 void Network::currentStatus() const
 {
-    for(unsigned int i = 0; i < numberOfComputers; ++i)
+    for (unsigned int i = 0; i < numberOfComputers_; ++i)
     {
-        std::cout << i << ": " << listOfComputers[i];
+        std::cout << i << ": " << listOfComputers_[i];
         std::cout << ", connected with";
+
         bool f = true;
 
-        for(unsigned int j = 0; j < numberOfComputers; ++j)
+        for (unsigned int j = 0; j < numberOfComputers_; ++j)
         {
-            if((i != j) && (adjacencyMatrix[i][j]))
+            if ((i != j) && (adjacencyMatrix_[i][j]))
             {
                 std::cout << ' ' << j;
                 f = false;
             }
         }
 
-        if(f)
+        if (f)
         {
             std::cout << " nobody";
         }
+
         std::cout << std::endl;
     }
 }
 
 int Network::howManyComputers() const
 {
-    return numberOfComputers;
+    return numberOfComputers_;
 }
 
 int Network::howManyInfected() const
 {
-    return numberOfVictims;
+    return numberOfVictims_;
 }
 
-void Network::SimulationStep()
+void Network::simulationStep()
 {
     int cube = virus_->getContagiousness();
 
-    for(unsigned int i = 0; i < numberOfComputers; ++i)
+    for (unsigned int i = 0; i < numberOfComputers_; ++i)
     {
 
-        if(listOfComputers[i].isInfected())
+        if (listOfComputers_[i].isInfected())
         {
 
-            for(unsigned int j = 0; j < numberOfComputers; ++j)
+            for (unsigned int j = 0; j < numberOfComputers_; ++j)
             {
-                if((adjacencyMatrix[i][j]) && (!listOfComputers[j].isInfected()))
+                if ((adjacencyMatrix_[i][j]) && (!listOfComputers_[j].isInfected()))
                 {
-                    if(listOfComputers[j].getProbability() > cube)
+                    if (listOfComputers_[j].getProbability() > cube)
                     {
-                        listOfComputers[j].infect();
-                        ++numberOfVictims;
+                        listOfComputers_[j].infect();
+                        ++numberOfVictims_;
                     }
 
                     return;
@@ -101,24 +105,24 @@ void Network::SimulationStep()
     }
 }
 
-void Network::SetFirstVictim(unsigned int _victim)
+void Network::setFirstVictim(unsigned int _victim)
 {
-    if(numberOfVictims)
+    if (numberOfVictims_)
     {
         return;
     }
 
-    if(_victim < numberOfComputers)
+    if (_victim < numberOfComputers_)
     {
-        listOfComputers[_victim].infect();
+        listOfComputers_[_victim].infect();
     }
     else
     {
-        int first = qrand() % numberOfComputers;
-        listOfComputers[first].infect();
+        int first = qrand() % numberOfComputers_;
+        listOfComputers_[first].infect();
     }
 
-    ++numberOfVictims;
+    ++numberOfVictims_;
 }
 
 void Network::setVirus(IVirus *_virus)
@@ -126,11 +130,7 @@ void Network::setVirus(IVirus *_virus)
     virus_ = _virus;
 }
 
-const Computer& Network::operator [](int i) const
-{/*
-    if((i < 0) || (i >= numberOfComputers))
-    {
-        return;
-    }*/
-    return listOfComputers[i];
+const Computer& Network::operator [](int _i) const
+{
+    return listOfComputers_[_i];
 }

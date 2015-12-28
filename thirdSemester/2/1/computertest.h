@@ -11,86 +11,106 @@ public:
    explicit ComputerTest(QObject *parent = 0) : QObject(parent) {}
 
 private slots:
-    void DefaultConsctructor()
+    void defaultConsctructor()
     {
         computer = new Computer();
+
         QVERIFY(computer->getProbability() == 0);
         QVERIFY(computer->isInfected() == false);
     }
 
-    void ProbabilityConstructor1()
+    void probabilityConstructor1()
     {
         computer = new Computer(0);
+
         QVERIFY(computer->getProbability() == 0);
         QVERIFY(computer->isInfected() == false);
     }
 
-    void ProbabilityConstructor2()
+    void probabilityConstructor2()
     {
         computer = new Computer(100);
+
         QVERIFY(computer->getProbability() == 100);
         QVERIFY(computer->isInfected() == false);
     }
 
-    void ProbabilityConstructor3()
+    void probabilityConstructor3()
     {
         computer = new Computer(70);
+
         QVERIFY(computer->getProbability() == 70);
         QVERIFY(computer->isInfected() == false);
     }
 
-    void InfectedConstructor()
+    void infectedConstructor()
     {
         computer = new Computer(true);
+
         QVERIFY(computer->getProbability() == 0);
         QVERIFY(computer->isInfected());
     }
 
-    void UnInfectedConstructor()
+    void unInfectedConstructor()
     {
         computer = new Computer(false);
+
         QVERIFY(computer->getProbability() == 0);
         QVERIFY(computer->isInfected() == false);
     }
 
-    void CopyConstruction()
+    void copyConstruction()
     {
-        Computer kompukter(31);
-        computer = new Computer(kompukter);
+        Computer computer2(31);
+
+        computer = new Computer(computer2);
+
         //qDebug() << "Original: " << kompukter.getProbability() << "\nCopy: " << computer->getProbability();
         QVERIFY(computer->getProbability() == 31);
         QVERIFY(computer->isInfected() == false);
     }
 
-    void CopyOperator()
+    void copyOperator()
     {
-        Computer kompukter1(42);
-        Computer kompukter2(66);
-        kompukter2 = kompukter1;
-        QVERIFY(kompukter2.getProbability() == 42);
-        QVERIFY(kompukter2.isInfected() == false);
+        Computer computer1(42);
+        Computer computer2(66);
+
+        computer2 = computer1;
+
+        QVERIFY(computer2.getProbability() == 42);
+        QVERIFY(computer2.isInfected() == false);
     }
 
-    void EqualityOperator()
+    void equalityOperator()
     {
-        Computer kompukter1(42);
-        Computer kompukter2(42);
-        QVERIFY(kompukter1 == kompukter2);
-        kompukter2.infect();
-        QVERIFY(!(kompukter1 == kompukter2));
-        kompukter1.infect();
-        QVERIFY(kompukter1 == kompukter2);
+        Computer computer1(42);
+        Computer computer2(42);
+
+        QVERIFY(computer1 == computer2);
+
+        computer2.infect();
+
+        QVERIFY(!(computer1 == computer2));
+
+        computer1.infect();
+
+        QVERIFY(computer1 == computer2);
     }
 
-    void InequalityOperator()
+    void inequalityOperator()
     {
-        Computer kompukter1(42);
-        Computer kompukter2(66);
-        QVERIFY(kompukter1 != kompukter2);
-        kompukter2.infect();
-        QVERIFY(kompukter1 != kompukter2);
-        kompukter1.infect();
-        QVERIFY(!(kompukter1 != kompukter2));
+        Computer computer1(42);
+        Computer computer2(66);
+
+        QVERIFY(computer1 != computer2);
+
+        computer2.infect();
+
+        QVERIFY(computer1 != computer2);
+
+        computer1.infect();
+
+        QVERIFY(!(computer1 != computer2));
     }
 
 private:

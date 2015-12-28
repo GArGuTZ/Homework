@@ -10,7 +10,9 @@ class IVirus
 public:
     IVirus();
     ~IVirus();
+
     virtual int getContagiousness();
+
 protected:
     int contagiousness_;
 };

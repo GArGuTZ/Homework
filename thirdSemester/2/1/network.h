@@ -15,7 +15,7 @@ class Network
 {
 public:
     /// @brief Create network with vector of computers and adjacency matrix of them
-    Network(const QVector<Computer> &computersList, bool **matrix);
+    Network(const QVector<Computer> &_computersList, bool **_matrix);
     ~Network();
 
     /// @brief writes network status in console
@@ -24,18 +24,19 @@ public:
     int howManyInfected() const;
 
     /// @brief Try to infect, if possibly;
-    void SimulationStep();
+    void simulationStep();
     /// @brief Setting first infected computer in !pure! network. If (_victim > numberOfComputers), infecting random computer
-    void SetFirstVictim(unsigned int _victim);
+    void setFirstVictim(unsigned int _victim);
 
     void setVirus(IVirus* _virus);
 
-    const Computer& operator [](int i) const;
+    const Computer& operator [](int _i) const;
+
 private:
     IVirus* virus_;
-    QVector<Computer> listOfComputers;
-    bool **adjacencyMatrix;
-    unsigned int numberOfComputers;
-    unsigned int numberOfVictims;
+    QVector<Computer> listOfComputers_;
+    bool **adjacencyMatrix_;
+    unsigned int numberOfComputers_;
+    unsigned int numberOfVictims_;
 
 };

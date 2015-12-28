@@ -2,91 +2,80 @@
 
 
 Computer::Computer():
-    morbidityPercentage(0),
-    Infection(false)
+    morbidityPercentage_(0),
+    infection_(false)
 {
 }
 
-Computer::Computer(int probabilityOfInfection):
-    Infection(false)
+Computer::Computer(int _probabilityOfInfection):
+    infection_(false)
 {
-    probabilityOfInfection = probabilityOfInfection % 101;
-    morbidityPercentage = probabilityOfInfection;
+    _probabilityOfInfection = _probabilityOfInfection % 101;
+    morbidityPercentage_ = _probabilityOfInfection;
 }
 
-Computer::Computer(bool infectedOrNot):
-    morbidityPercentage(0),
-    Infection(infectedOrNot)
+Computer::Computer(bool _infectedOrNot):
+    morbidityPercentage_(0),
+    infection_(_infectedOrNot)
 {
 }
 
-Computer::Computer(const Computer &obj)
+Computer::Computer(const Computer& _obj)
 {
-    morbidityPercentage = obj.morbidityPercentage;
-    Infection = obj.Infection;
-}
-
-Computer &Computer::operator =(const Computer &obj)
-{
-    morbidityPercentage = obj.getProbability();
-    Infection = obj.isInfected();
-    return *this;
-}
-
-bool Computer::operator ==(const Computer &second) const
-{
-    if((morbidityPercentage == second.getProbability()) && (Infection == second.isInfected()))
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-bool Computer::operator !=(const Computer &second) const
-{
-    if((Infection != second.isInfected()) || (morbidityPercentage != second.getProbability()))
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    morbidityPercentage_ = _obj.morbidityPercentage_;
+    infection_ = _obj.infection_;
 }
 
 Computer::~Computer()
 {
 }
 
+
 int Computer::getProbability() const
 {
-    return morbidityPercentage;
+    return morbidityPercentage_;
 }
 
 bool Computer::isInfected() const
 {
-    return Infection;
+    return infection_;
 }
 
 void Computer::infect()
 {
-    Infection = true;
-    morbidityPercentage = 0;
+    infection_ = true;
+    morbidityPercentage_ = 0;
 }
 
-std::ostream &operator <<(std::ostream &stream, const Computer& komp)
+
+Computer &Computer::operator =(const Computer& _obj)
 {
-    if(komp.isInfected())
+    morbidityPercentage_ = _obj.getProbability();
+    infection_ = _obj.isInfected();
+
+    return *this;
+}
+
+bool Computer::operator ==(const Computer& _second) const
+{
+    return ((morbidityPercentage_ == _second.getProbability()) && (infection_ == _second.isInfected()));
+}
+
+bool Computer::operator !=(const Computer& _second) const
+{
+    return ((infection_ != _second.isInfected()) || (morbidityPercentage_ != _second.getProbability()));
+}
+
+std::ostream &operator <<(std::ostream& _stream, const Computer& _computer)
+{
+    if (_computer.isInfected())
     {
-        stream << "Infected Computer";
+        _stream << "Infected Computer";
     }
     else
     {
-        stream << "Pure Computer, with " << komp.getProbability() << "% probability of infect";
+        _stream << "Pure Computer, with " << _computer.getProbability() << "% probability of infect";
     }
 
-    return stream;
+    return _stream;
 }

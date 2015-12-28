@@ -12,6 +12,7 @@ class GoodVirus : public IVirus
 public:
     GoodVirus();
     ~GoodVirus();
+
     int getContagiousness();
 };
 

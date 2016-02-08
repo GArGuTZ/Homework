@@ -46,7 +46,7 @@ Landscape::Landscape(unsigned int _sceneWidth, unsigned int _sceneHeight):
 
 Landscape::Landscape(const Landscape& _land)
 {
-    if(_land.getLength() < 1)
+    if (_land.getLength() < 1)
     {
         return;
     }

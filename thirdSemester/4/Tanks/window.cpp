@@ -23,7 +23,7 @@ bool Window::initNetwork()
 
     if (clickedButton == serverButton)
     {
-        Server *server = new Server(this);
+        Server* server = new Server(this);
         network_ = server;
         connect(server, SIGNAL(connected()), this, SLOT(connected()));
         connect(server, SIGNAL(disconnected()), this, SLOT(disconnected()));
@@ -39,7 +39,7 @@ bool Window::initNetwork()
     }
     else if (clickedButton == clientButton)
     {
-        Client *client = new Client(this);
+        Client* client = new Client(this);
         connect(client, SIGNAL(disconnected()), this, SLOT(disconnected()));
         network_ = client;
         ConnectServerDialog *dialog = new ConnectServerDialog(client);

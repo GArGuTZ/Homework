@@ -5,13 +5,13 @@
 
 #include "gamecore.h"
 
-KeyboardController::KeyboardController(QObject *_parent) :
+KeyboardController::KeyboardController(QObject* _parent) :
     Controller(_parent)
 {
     _parent->installEventFilter(this);
 }
 
-bool KeyboardController::eventFilter(QObject *object, QEvent *event)
+bool KeyboardController::eventFilter(QObject* object, QEvent* event)
 {
     if (object == parent())
     {
@@ -22,7 +22,7 @@ bool KeyboardController::eventFilter(QObject *object, QEvent *event)
                 return false;
             }
 
-            QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+            QKeyEvent* keyEvent = static_cast<QKeyEvent *>(event);
 
             if (keyEvent->isAutoRepeat())
             {
@@ -59,10 +59,10 @@ bool KeyboardController::eventFilter(QObject *object, QEvent *event)
                 pressed_ = Qt::Key_Space;
                 emit shootPressed();
             }
-            else if (keyEvent->key() == Qt::Key_Q)
+            else if (keyEvent->key() == Qt::Key_G)
             {
-                qDebug("Q");
-                pressed_ = Qt::Key_Q;
+                qDebug("G");
+                pressed_ = Qt::Key_G;
                 emit changeGunPressed();
             }
 
@@ -70,7 +70,7 @@ bool KeyboardController::eventFilter(QObject *object, QEvent *event)
         }
         else if (event->type() == QEvent::KeyRelease)
         {
-            QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+            QKeyEvent* keyEvent = static_cast<QKeyEvent *>(event);
             if (keyEvent->isAutoRepeat())
             {
                 return false;

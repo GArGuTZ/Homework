@@ -3,7 +3,7 @@
 #include <QGraphicsItem>
 #include <QPainter>
 
-/** @brief Explosion describe an explosion */
+/** @brief Explosion describes an explosion */
 
 class Explosion : public QGraphicsItem
 {

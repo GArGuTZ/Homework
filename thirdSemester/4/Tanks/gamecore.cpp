@@ -7,7 +7,6 @@
 GameCore::GameCore(unsigned int _width, unsigned int _height, QWidget* _parent):
     QGraphicsView(_parent),
     network_(nullptr),
-    winnerMessage_(nullptr),
     scene_(nullptr),
     loop_(new QEventLoop(this)),
     timer_(nullptr),
@@ -31,22 +30,9 @@ GameCore::GameCore(unsigned int _width, unsigned int _height, QWidget* _parent):
     scene_->setSceneRect(0, 0, windowWidth_, windowHeight_);
 }
 
-GameCore::~GameCore()
-{
-    if (scene_)
-    {
-        delete scene_;
-    }
-
-    if (landscape_)
-    {
-        delete landscape_;
-    }
-}
-
 void GameCore::setLandscape(Landscape* _landscape)
 {
-    Client *client = static_cast<Client *>(network_);
+    Client* client = static_cast<Client *>(network_);
     disconnect(client, SIGNAL(gotLandscape(Landscape*)), this, SLOT(setLandscape(Landscape*)));
     landscape_ = _landscape;
     loop_->exit();
@@ -63,7 +49,7 @@ void GameCore::startGame(Network *_network)
     {
         isServer_ = true;
 
-        Server *server = static_cast<Server *>(_network);
+        Server* server = static_cast<Server *>(_network);
         landscape_ = new Landscape(windowWidth_, windowHeight_);
         server->sendLandscape(landscape_);
 
@@ -75,7 +61,7 @@ void GameCore::startGame(Network *_network)
     }
     else
     {
-        Client *client = static_cast<Client *>(_network);
+        Client* client = static_cast<Client *>(_network);
         connect(client, SIGNAL(gotLandscape(Landscape *)), this, SLOT(setLandscape(Landscape*)));
         loop_->exec();
 
@@ -134,24 +120,6 @@ void GameCore::nextStep(bool _isBigGun)
     timer_->start(20);
 }
 
-void GameCore::checkWinner(Tank *_winner)
-{/*
-    winnerMessage_ = new QMessageBox;
-    winnerMessage_->setIcon(QMessageBox::Warning);
-    if (_winner == firstTank_)
-    {
-        winnerMessage_->setText("First Tank Wins!");
-        emit gameOver("First Tank Wins!");
-    }
-    else if (_winner == secondTank_)
-    {
-        winnerMessage_->setText("Second Tank Wins!");
-        emit gameOver("Second Tank Wins!");
-    }
-    winnerMessage_->exec();
-    close();*/
-}
-
 void GameCore::frame()
 {
     if (shell_->collidesWithItem(victim_))
@@ -160,16 +128,15 @@ void GameCore::frame()
         delete shell_;
         shellLaunched_ = false;
 
-        if(isFirstTankTurn_)
-        {
-            emit gameOver("Second Tank Wins!");
-        }
-        else
+        if (isFirstTankTurn_ ^ isServer_)
         {
             emit gameOver("First Tank Wins!");
         }
+        else
+        {
+            emit gameOver("Second Tank Wins!");
+        }
 
-        checkWinner(currentTank_);
         qDebug("Collide with victim");
     }
     else if (shell_->collidesWithItem(landscape_))
@@ -180,16 +147,14 @@ void GameCore::frame()
 
         if (shell_->blast()->collidesWithItem(victim_))
         {
-            if(isFirstTankTurn_)
-            {
-                emit gameOver("Second Tank Wins!");
-            }
-            else
+            if (isFirstTankTurn_ ^ isServer_)
             {
                 emit gameOver("First Tank Wins!");
             }
-
-            checkWinner(currentTank_);
+            else
+            {
+                emit gameOver("Second Tank Wins!");
+            }
 
             qDebug("Explode");
         }
@@ -197,7 +162,7 @@ void GameCore::frame()
         delete shell_;
         shellLaunched_ = false;
 
-        if(isFirstTankTurn_)
+        if (isFirstTankTurn_)
         {
             firstTank_->getController()->blockSignals(false);
         }
@@ -207,6 +172,7 @@ void GameCore::frame()
         }
 
         std::swap(currentTank_, victim_);
+
         qDebug("Collide with surface");
     }
     else if (scene_->sceneRect().contains(shell_->getPosition()))
@@ -219,7 +185,7 @@ void GameCore::frame()
         delete shell_;
         shellLaunched_ = false;
 
-        if(isFirstTankTurn_)
+        if (isFirstTankTurn_)
         {
             firstTank_->getController()->blockSignals(false);
         }
@@ -229,6 +195,7 @@ void GameCore::frame()
         }
 
         std::swap(currentTank_, victim_);
+
         qDebug("Out of scene");
     }
 

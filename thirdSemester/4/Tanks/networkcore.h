@@ -10,17 +10,19 @@
 class Tank;
 class NetworkController;
 
-/** @brief The Network class is a base class for the Client and Server */
+/** @brief Base class for the Client and Server */
+
 class Network : public QObject
 {
     Q_OBJECT
 public:
     explicit Network(QObject* _parent = 0);
 
-    /** @brief sets the InputObserver for a subject and its input */
-    void observeController(Tank* _subject);
-    /** @brief initalize NetworkInputManager instance that is connected with a subject */
-    void initController(Tank* _subject);
+    /** @brief Sets the ObserverController for a tank and his input */
+    void observeController(Tank* _tank);
+
+    /** @brief Initalize NetworkController instance connected with a tank */
+    void initController(Tank* _tank);
 
 signals:
     void disconnected();
@@ -35,8 +37,8 @@ private slots:
 protected:
     virtual void decodeMessage(const QString& _message);
 
-    NetworkController *inputManager_;
-    QTcpSocket *tcpSocket_;
-    QNetworkSession *networkSession_;
+    NetworkController* networkController_;
+    QTcpSocket* tcpSocket_;
+    QNetworkSession* networkSession_;
     quint16 blockSize_;
 };

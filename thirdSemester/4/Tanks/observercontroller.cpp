@@ -4,12 +4,12 @@
 #include "tank.h"
 #include "gamecore.h"
 
-ObserverController::ObserverController(QObject* _parent, Tank* _subject) :
+ObserverController::ObserverController(QObject* _parent, Tank* _tank) :
     QObject(_parent),
-    subject_(_subject),
-    game_(subject_->getGame())
+    tank_(_tank),
+    game_(tank_->getGame())
 {
-    Controller* controller = _subject->getController();
+    Controller* controller = _tank->getController();
     connect(controller, SIGNAL(gunDownPressed()), this, SLOT(gunDownPressed()));
     connect(controller, SIGNAL(gunUpPressed()), this, SLOT(gunUpPressed()));
     connect(controller, SIGNAL(moveRightPressed()), this, SLOT(moveRightPressed()));

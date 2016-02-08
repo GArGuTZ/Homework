@@ -51,10 +51,6 @@ void Server::sendLandscape(Landscape *_landscape)
     QString message = "L";
     message += QString::number(length);
 
-    const char* x = new char(length);
-
-    qDebug(x);
-
     for (int i = 0; i < length; ++i)
     {
         message += " " + QString::number(fieldX[i]);

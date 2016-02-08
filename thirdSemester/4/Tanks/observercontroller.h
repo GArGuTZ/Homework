@@ -10,7 +10,7 @@ class ObserverController : public QObject
 {
     Q_OBJECT
 public:
-    explicit ObserverController(QObject* _parent, Tank* _subject);
+    explicit ObserverController(QObject* _parent, Tank* _tank);
 
 signals:
     void emitInput(const QString& _message);
@@ -24,6 +24,8 @@ protected slots:
     void changeGunPressed();
 
 private:
-    Tank* subject_;
+    Tank* tank_;
+
+    /** @brief Need for updating viewport */
     GameCore* game_;
 };

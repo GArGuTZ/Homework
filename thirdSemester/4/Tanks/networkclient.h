@@ -10,7 +10,8 @@
 
 class Landscape;
 
-/** @brief The Client class represents the Client */
+/** @brief Describes a client */
+
 class Client : public Network
 {
     Q_OBJECT
@@ -20,7 +21,8 @@ public:
     void connectToServer(int _port);
 
 signals:
-    /** @brief emitted when the Landscape received by the network. */
+
+    /** @brief Emitted when the Landscape received by the network */
     void gotLandscape(Landscape* _landscape);
 
 protected:

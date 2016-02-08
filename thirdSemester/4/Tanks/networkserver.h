@@ -11,15 +11,18 @@
 #include "landscape.h"
 #include "networkcore.h"
 
-/** @brief The Server class is a representation of the Server */
+/** @brief Describes a server */
+
 class Server : public Network
 {
     Q_OBJECT
 public:
     explicit Server(QObject* _parent = nullptr);
+
     bool init();
 
     QString getPort() const;
+
     void sendLandscape(Landscape* _landscape);
 
 private slots:
@@ -27,5 +30,5 @@ private slots:
     void connectClient();
 
 private:
-    QTcpServer *tcpServer_;
+    QTcpServer* tcpServer_;
 };

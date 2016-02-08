@@ -15,7 +15,7 @@ Shell::Shell(QPointF _position, TankDirection _direction, const double _angle):
 
 Shell::~Shell()
 {
-    if(explosion_)
+    if (explosion_)
     {
         delete explosion_;
     }
@@ -57,7 +57,7 @@ void Shell::frame()
 
 Explosion* Shell::blast()
 {
-    if(!explosion_)
+    if (!explosion_)
     {
         explosion_ = new Explosion(shellPosition_, radius_);
     }

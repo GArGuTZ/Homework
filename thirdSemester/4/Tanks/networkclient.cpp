@@ -32,7 +32,7 @@ void Client::decodeMessage(const QString& _message)
 
     if (_message.at(0) == QChar('L'))
     {
-        Landscape *landscape = new Landscape(800, 600);
+        Landscape* landscape = new Landscape(800, 600);
 
         QStringList stringList = _message.split(" ");
 

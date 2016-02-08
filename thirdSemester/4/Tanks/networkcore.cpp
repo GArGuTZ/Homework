@@ -6,22 +6,22 @@
 
 Network::Network(QObject* _parent) :
     QObject(_parent),
-    inputManager_(nullptr),
+    networkController_(nullptr),
     tcpSocket_(nullptr),
     networkSession_(nullptr),
     blockSize_(0)
 {
 }
 
-void Network::observeController(Tank* _subject)
+void Network::observeController(Tank* _tank)
 {
-    ObserverController *inputObserver = new ObserverController(this, _subject);
-    connect(inputObserver, SIGNAL(emitInput(QString)), this, SLOT(sendMessage(QString)));
+    ObserverController* observerController = new ObserverController(this, _tank);
+    connect(observerController, SIGNAL(emitInput(QString)), this, SLOT(sendMessage(QString)));
 }
 
-void Network::initController(Tank* _subject)
+void Network::initController(Tank* _tank)
 {
-    inputManager_ = new NetworkController(this, _subject);
+    networkController_ = new NetworkController(this, _tank);
 }
 
 void Network::newMessage()
@@ -46,9 +46,9 @@ void Network::newMessage()
 
 void Network::decodeMessage(const QString& _message)
 {
-    if (inputManager_ && (_message.size() > 1) && (_message.at(0) == QChar('K')))
+    if (networkController_ && (_message.size() > 1) && (_message.at(0) == QChar('K')))
     {
-        inputManager_->handle(_message);
+        networkController_->handle(_message);
     }
 }
 

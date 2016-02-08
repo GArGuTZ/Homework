@@ -12,7 +12,7 @@ BigShell::~BigShell()
 
 Explosion *BigShell::blast()
 {
-    if(!explosion_)
+    if (!explosion_)
     {
         explosion_ = new Explosion(shellPosition_, radius_*1.5);
     }

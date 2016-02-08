@@ -96,7 +96,7 @@ void Tank::moveLeft()
 {
     currentDirection_ = leftDirection;
 
-    if(currentVertex_ == 0)
+    if (currentVertex_ == 0)
     {
         return;
     }
@@ -104,7 +104,7 @@ void Tank::moveLeft()
     --currentVertex_;
     position_ = land_->getCoordinates(currentVertex_);
 
-    if(gunPosition_.x() > 0)
+    if (gunPosition_.x() > 0)
     {
         gunPosition_.rx() = -gunPosition_.x();
     }
@@ -116,7 +116,7 @@ void Tank::moveRight()
 {
     currentDirection_ = rightDirection;
 
-    if(currentVertex_ == (land_->getLength() - 1))
+    if (currentVertex_ == (land_->getLength() - 1))
     {
         return;
     }
@@ -124,7 +124,7 @@ void Tank::moveRight()
     ++currentVertex_;
     position_ = land_->getCoordinates(currentVertex_);
 
-    if(gunPosition_.x() < 0)
+    if (gunPosition_.x() < 0)
     {
         gunPosition_.rx() = -gunPosition_.x();
     }
@@ -134,7 +134,7 @@ void Tank::moveRight()
 
 void Tank::upGun()
 {
-    if(gunAngle_ >= 90)
+    if (gunAngle_ >= 90)
     {
         return;
     }
@@ -147,7 +147,7 @@ void Tank::upGun()
 
 void Tank::downGun()
 {
-    if(gunAngle_ <= 0)
+    if (gunAngle_ <= 0)
     {
         return;
     }
@@ -161,7 +161,7 @@ void Tank::downGun()
 
 void Tank::switchGun()
 {
-    if(currentGun_ == standardGun)
+    if (currentGun_ == standardGun)
     {
         currentGun_ = bigGun;
     }
@@ -200,7 +200,6 @@ void Tank::setController(Controller *_controller)
     connect(_controller, SIGNAL(gunDownPressed()), this, SLOT(downGun()));
     connect(_controller, SIGNAL(shootPressed()), this, SLOT(shoot()));
     connect(_controller, SIGNAL(changeGunPressed()), this, SLOT(switchGun()));
-    //connect(_controller, SIGNAL(buttonReleased()), this, SLOT(stopAction()));
 }
 
 Controller *Tank::getController()

@@ -2,7 +2,8 @@
 
 #include "controller.h"
 
-/** @brief The KeyboardManager class handles keyboard input. */
+/** @brief Handles keyboard input */
+
 class KeyboardController : public Controller
 {
 public:

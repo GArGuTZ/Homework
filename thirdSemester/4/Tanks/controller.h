@@ -2,7 +2,7 @@
 
 #include <QObject>
 
-/** @brief The InputManager class is used by the Cannon class to get input. */
+/** @brief Base class for the KeyboardController and NetworkController, describes input of the tank */
 class Controller : public QObject
 {
     Q_OBJECT

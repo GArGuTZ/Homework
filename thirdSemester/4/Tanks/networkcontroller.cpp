@@ -4,11 +4,11 @@
 #include "tank.h"
 #include "gamecore.h"
 
-NetworkController::NetworkController(Network* _parent, Tank* _subject) :
-    Controller(_parent),
-    subject_(_subject)
+NetworkController::NetworkController(Network* _network, Tank* _tank) :
+    Controller(_network),
+    tank_(_tank)
 {
-    subject_->setController(this);
+    tank_->setController(this);
 }
 
 void NetworkController::handle(const QString& _message)
@@ -38,5 +38,5 @@ void NetworkController::handle(const QString& _message)
         emit changeGunPressed();
     }
 
-    subject_->getGame()->viewport()->update();
+    tank_->getGame()->viewport()->update();
 }

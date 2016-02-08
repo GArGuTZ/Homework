@@ -33,7 +33,7 @@ protected:
     QPointF shellPosition_;
     double startAngle_;
 
-    /** @brief Size of shell */
+    /** @brief Size of the shell */
     double radius_;
 
     double graviAcceleration_;

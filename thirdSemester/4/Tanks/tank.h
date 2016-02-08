@@ -52,8 +52,10 @@ public:
     /** @brief Returns direction of the movement */
     TankDirection getDirection() const;
 
+    /** @brief Connects signals of controller and slots of the tank */
     void setController(Controller* _controller);
     Controller* getController();
+
     GameCore* getGame();
 
 public slots:

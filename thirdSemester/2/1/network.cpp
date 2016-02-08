@@ -130,6 +130,16 @@ void Network::setVirus(IVirus *_virus)
     virus_ = _virus;
 }
 
+void Network::setFakeRandomGenerator(QVector<unsigned int> _fake)
+{
+    virus_->setFakeRandomGenerator(_fake);
+}
+
+void Network::unsetFakeRandomGenerator()
+{
+    virus_->unsetFakeRandomGenerator();
+}
+
 const Computer& Network::operator [](int _i) const
 {
     return listOfComputers_[_i];

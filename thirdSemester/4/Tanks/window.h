@@ -9,13 +9,13 @@
 #include <QMessageBox>
 #include <QStatusBar>
 
-#include "controller.h"
-#include "gamecore.h"
-#include "landscape.h"
-#include "tank.h"
-#include "connectserverdialog.h"
-#include "networkclient.h"
-#include "networkserver.h"
+#include "Input/controller.h"
+#include "Game/gamecore.h"
+#include "Game/landscape.h"
+#include "Game/tank.h"
+#include "Network/connectserverdialog.h"
+#include "Network/networkclient.h"
+#include "Network/networkserver.h"
 
 class Window : public QMainWindow
 {

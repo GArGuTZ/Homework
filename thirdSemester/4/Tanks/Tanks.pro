@@ -15,35 +15,35 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    landscape.cpp \
-    tank.cpp \
     window.cpp \
-    gamecore.cpp \
-    shell.cpp \
-    bigshell.cpp \
-    explosion.cpp \
-    controller.cpp \
-    networkclient.cpp \
-    networkcore.cpp \
-    networkserver.cpp \
-    connectserverdialog.cpp \
-    keyboardcontroller.cpp \
-    observercontroller.cpp \
-    networkcontroller.cpp
+    Network/connectserverdialog.cpp \
+    Network/networkclient.cpp \
+    Network/networkcore.cpp \
+    Network/networkserver.cpp \
+    Input/controller.cpp \
+    Input/keyboardcontroller.cpp \
+    Input/networkcontroller.cpp \
+    Input/observercontroller.cpp \
+    Game/bigshell.cpp \
+    Game/explosion.cpp \
+    Game/gamecore.cpp \
+    Game/landscape.cpp \
+    Game/shell.cpp \
+    Game/tank.cpp
 
 HEADERS  += \
-    landscape.h \
-    tank.h \
     window.h \
-    gamecore.h \
-    shell.h \
-    bigshell.h \
-    explosion.h \
-    controller.h \
-    networkclient.h \
-    networkcore.h \
-    networkserver.h \
-    connectserverdialog.h \
-    keyboardcontroller.h \
-    observercontroller.h \
-    networkcontroller.h
+    Network/connectserverdialog.h \
+    Network/networkclient.h \
+    Network/networkcore.h \
+    Network/networkserver.h \
+    Input/controller.h \
+    Input/keyboardcontroller.h \
+    Input/networkcontroller.h \
+    Input/observercontroller.h \
+    Game/bigshell.h \
+    Game/explosion.h \
+    Game/gamecore.h \
+    Game/landscape.h \
+    Game/shell.h \
+    Game/tank.h

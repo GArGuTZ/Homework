@@ -98,7 +98,7 @@ private slots:
         QVERIFY(testingWeb->howManyComputers() == 0);
     }
 
-    void DisconnectedNetworkSimulation()
+    void disconnectedNetworkSimulation()
     {
         delete testingWeb;
 
@@ -251,6 +251,35 @@ private slots:
         }
 
         QVERIFY(testingWeb->howManyInfected() == 1);
+    }
+
+    void testWithFakeGenerator()
+    {
+        QVector<unsigned int> fakes = {12, 53, 91};
+
+        testingWeb->setFirstVictim(0);
+        testingWeb->setFakeRandomGenerator(fakes);
+
+        testingWeb->simulationStep();
+        QVERIFY((*testingWeb)[1].isInfected());
+
+        testingWeb->simulationStep();
+        QVERIFY((*testingWeb)[2].isInfected());
+
+        testingWeb->simulationStep();
+        QVERIFY(!(*testingWeb)[3].isInfected());
+
+        testingWeb->simulationStep();
+        QVERIFY((*testingWeb)[3].isInfected());
+
+        testingWeb->simulationStep();
+        QVERIFY((*testingWeb)[4].isInfected());
+
+        testingWeb->simulationStep();
+        QVERIFY(!(*testingWeb)[5].isInfected());
+
+        testingWeb->simulationStep();
+        QVERIFY((*testingWeb)[5].isInfected());
     }
 
 private:
